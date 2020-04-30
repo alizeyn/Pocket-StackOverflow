@@ -18,5 +18,8 @@
 
     <actions>
         <!-- Add your actions here -->
+        <action id="HiAction" class="HiAction" text="Hi">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </action>
     </actions>
 </idea-plugin>
