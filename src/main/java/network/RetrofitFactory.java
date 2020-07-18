@@ -9,13 +9,11 @@ import java.util.concurrent.TimeUnit;
 
 public class RetrofitFactory {
 
-    public static String STACK_OVERFLOW_BASE_URL = "";
+    public static String STACK_OVERFLOW_BASE_URL = "http://localhost:9595";
 
     private static RetrofitFactory retrofitFactory;
     private OkHttpClient client;
     private Retrofit stackOverflowRetrofit;
-    //todo: add github to search services
-    //private Retrofit githubRetrofit;
 
     private RetrofitFactory() {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
@@ -33,7 +31,7 @@ public class RetrofitFactory {
         return retrofitFactory == null ?
         (retrofitFactory = new RetrofitFactory()) : retrofitFactory;
     }
-    public StackOverflowServices getStackOverflowRetrofit() {
+    public SearchServices getSearchRetrofit() {
         if (stackOverflowRetrofit == null) {
             stackOverflowRetrofit = new Retrofit.Builder()
                     .client(client)
@@ -41,6 +39,6 @@ public class RetrofitFactory {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
-        return stackOverflowRetrofit.create(StackOverflowServices.class);
+        return stackOverflowRetrofit.create(SearchServices.class);
     }
 }
