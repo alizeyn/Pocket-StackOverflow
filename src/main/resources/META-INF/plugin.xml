@@ -14,6 +14,11 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
+        <toolWindow
+            id="Son of Man"
+            icon="/icons/code.svg"
+            anchor="right"
+            factoryClass="plugin.SearchToolWindowFactory"/>
     </extensions>
 
     <actions>
