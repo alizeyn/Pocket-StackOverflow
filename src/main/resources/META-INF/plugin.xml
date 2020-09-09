@@ -15,10 +15,16 @@
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
         <toolWindow
-            id="Son of Man"
-            icon="/icons/code.svg"
-            anchor="right"
-            factoryClass="plugin.SearchToolWindowFactory"/>
+                id="Son of Man"
+                icon="/icons/toolwin_code.svg"
+                anchor="right"
+                factoryClass="plugin.SearchToolWindowFactory"/>
+
+        <toolWindow id="Sample Calendar"
+                    secondary="true"
+                    icon="AllIcons.General.Modified"
+                    anchor="right"
+                    factoryClass="plugin.MyToolWindowFactory"/>
     </extensions>
 
     <actions>
