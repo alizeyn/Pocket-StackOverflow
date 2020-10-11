@@ -1,11 +1,10 @@
 package plugin;
 
-import com.intellij.openapi.ui.SimpleToolWindowPanel;
-import com.intellij.openapi.wm.ToolWindow;
+import model.ParseResult;
 
 import javax.swing.*;
 
-public class SearchToolWindow extends SimpleToolWindowPanel {
+public class SearchItemUi {
 
     private JPanel searchToolWindowContent;
     private JLabel questionLabel;
@@ -13,14 +12,21 @@ public class SearchToolWindow extends SimpleToolWindowPanel {
     private JLabel answerLabel;
     private JLabel answerPlaceHolder;
 
-    public SearchToolWindow(ToolWindow toolWindow) {
-        super(true, false);
+    public SearchItemUi(ParseResult searchItem) {
 
+        setQuestion(searchItem.getQuestion().getBody());
+        setAnswer(searchItem.getAnswers().get(0).getBody());
+    }
+
+    public SearchItemUi(int i) {
+
+        setQuestion(String.valueOf(i));
     }
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
     }
+
     public JPanel getContent() {
         return searchToolWindowContent;
     }
@@ -30,13 +36,11 @@ public class SearchToolWindow extends SimpleToolWindowPanel {
     }
 
     public void setAnswer(String answer) {
-
-        answerPlaceHolder.setText(answer);
+        answerPlaceHolder.setText("<html>" + answer + "</html>");
     }
 
     public void setQuestion(String question) {
-
-        questionPlaceHolderLabel.setText(question);
+        questionPlaceHolderLabel.setText("<html>" + question + "</html>");
     }
 
 }
