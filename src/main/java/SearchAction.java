@@ -1,27 +1,25 @@
-import com.esotericsoftware.minlog.Log;
-import com.intellij.icons.AllIcons;
-import com.intellij.ide.BrowserUtil;
-import com.intellij.ide.actions.MacEmojiAndSymbolsInputAction;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.ui.Messages;
 import model.ParseResult;
 import network.RetrofitFactory;
 import org.jetbrains.annotations.NotNull;
-import org.snakeyaml.engine.v2.api.lowlevel.Parse;
+import plugin.SearchToolWindow;
+import plugin.SearchToolWindowFactory;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import javax.swing.*;
 import java.util.List;
 
 public class SearchAction extends AnAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
+
         Editor editor = e.getData(PlatformDataKeys.EDITOR);
         String selectedText = null;
         if (editor != null) {
@@ -30,6 +28,9 @@ public class SearchAction extends AnAction {
         if (selectedText == null || selectedText.isEmpty()) {
             Messages.showErrorDialog("You must select a text to search", "Error");
         } else {
+            SearchToolWindowFactory.ProjectService projectService = ServiceManager.getService(e.getProject(), SearchToolWindowFactory.ProjectService.class);
+            SearchToolWindow searchToolWindow = projectService.getSearchToolWindow();
+
             RetrofitFactory.getInstance()
                     .getSearchRetrofit()
                     .searchStackOverflow(selectedText)
@@ -37,6 +38,9 @@ public class SearchAction extends AnAction {
                         @Override
                         public void onResponse(Call<List<ParseResult>> call, Response<List<ParseResult>> response) {
                             System.out.println(response.body().size());
+                            ParseResult result = response.body().get(0);
+                            searchToolWindow.setQuestion(result.getQuestion().getTitle());
+                            searchToolWindow.setAnswer(result.getAnswers().get(0).getBody());
                         }
 
                         @Override
@@ -44,8 +48,11 @@ public class SearchAction extends AnAction {
                             t.printStackTrace();
                         }
                     });
-
+//            searchToolWindow.setQuestion("How can I fuck you?");
+//            searchToolWindow.setAnswer("By gently asking me");
         }
+
+
     }
 
     @Override
@@ -53,4 +60,6 @@ public class SearchAction extends AnAction {
         super.update(e);
         e.getPresentation().setIcon(PluginIcons.SON_OF_MAN);
     }
+
+
 }

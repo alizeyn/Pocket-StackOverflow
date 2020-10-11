@@ -1,5 +1,6 @@
 package plugin;
 
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
@@ -9,11 +10,29 @@ import org.jetbrains.annotations.NotNull;
 
 public class SearchToolWindowFactory implements ToolWindowFactory {
 
+
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
-        SearchToolWindow myToolWindow = new SearchToolWindow(toolWindow);
+
+        SearchToolWindow searchToolWindow = new SearchToolWindow(toolWindow);
+
+        ProjectService projectService = ServiceManager.getService(project, ProjectService.class);
+        projectService.setSearchToolWindow(searchToolWindow);
+
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
-//        Content content = contentFactory.createContent(myToolWindow.getContent(), "Son Of Man DN", false);
-//        toolWindow.getContentManager().addContent(content);
+        Content content = contentFactory.createContent(searchToolWindow.getContent(), "Son Of Man", false);
+        toolWindow.getContentManager().addContent(content);
+    }
+    public static class ProjectService {
+
+        private SearchToolWindow gerritToolWindow;
+
+        public SearchToolWindow getSearchToolWindow() {
+            return gerritToolWindow;
+        }
+
+        void setSearchToolWindow(SearchToolWindow gerritToolWindow) {
+            this.gerritToolWindow = gerritToolWindow;
+        }
     }
 }
