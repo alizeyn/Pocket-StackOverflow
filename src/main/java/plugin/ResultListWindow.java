@@ -2,7 +2,6 @@ package plugin;
 
 import com.intellij.openapi.ui.SimpleToolWindowPanel;
 import com.intellij.openapi.wm.ToolWindow;
-import com.intellij.ui.JBColor;
 import com.intellij.ui.components.JBScrollPane;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,17 +39,22 @@ public class ResultListWindow extends SimpleToolWindowPanel {
     public void updateData() {
 
         for (int i = 0; i < 50; i++) {
-            JPanel panel = new SearchItemUi(i).getContent();
+            SearchItemUi itemUi = new SearchItemUi(i);
+            itemUi.setQuestionTitle("How Can I Fuck You ?How Can I Fuck You ?How Can I Fuck You ?How Can I Fuck You ?How Can I Fuck You ?How Can I Fuck You ?How Can I Fuck You ?How Can I Fuck You ?How Can I Fuck You ?How Can I Fuck You ?");
+            itemUi.setAnswer("Ask Me Gently :)");
+            JPanel panel = itemUi.getContent();
             panel.setAlignmentX(Component.LEFT_ALIGNMENT);
-            if (i % 2 != 0) {
-                panel.setBackground(new JBColor(new Color(255, 0, 0), new Color(0, 134, 0)));
-            } else {
-                panel.setBackground(new JBColor(new Color(0, 134, 0), new Color(255, 0, 0)));
-            }
+//            if (i % 2 != 0) {
+//                panel.setBackground(new JBColor(new Color(255, 0, 0), new Color(0, 134, 0)));
+//            } else {
+//                panel.setBackground(new JBColor(new Color(0, 134, 0), new Color(255, 0, 0)));
+//            }
             Dimension d = panel.getPreferredSize();
             Dimension itemSize = new Dimension(500, d.height);
             panel.setMaximumSize(itemSize);
             contentHolder.add(panel);
+
+            contentHolder.add(new JSeparator());
         }
     }
 }
