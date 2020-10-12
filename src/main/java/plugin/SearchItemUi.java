@@ -37,30 +37,34 @@ public class SearchItemUi {
     }
 
     public void setAnswer(String answer) {
-        answerDescription.setText("<html>" + answer + "</html>");
+        answerDescription.setText(getModifiedText(answer));
     }
 
     public void setQuestion(String question) {
-        questionDescription.setText("<html>" + question + "</html>");
+        questionDescription.setText(getModifiedText(question));
     }
 
     public void setQuestionTitle(String title) {
-        String labelText = String.format("<html><div WIDTH=%d>%s</div></html>", 480, title);
-        questionTitle.setText(labelText);
+        questionTitle.setText(getModifiedText(title));
     }
 
-    private void setItemBorder(JPanel panel) {
+    private String getModifiedText(String rawText) {
+
+        String text = rawText.replace("\\n", "");
+        return String.format("<html><div WIDTH=%d>%s</div></html>", 500, text);
+    }
+
+    private void setItemBorder(JComponent jComponent) {
 
         Border border = JBUI.Borders.empty(16);
-        panel.setBorder(border);
+        jComponent.setBorder(border);
     }
 
     private void setLookAndFeel() {
 
         setItemBorder(searchToolWindowContent);
+
         JBLabel jbLabel = new JBLabel();
         questionTitle.setUI(jbLabel.getUI());
-
     }
-
 }
