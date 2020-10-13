@@ -37,7 +37,10 @@ public class SearchItemUi {
     }
 
     public void setAnswer(String answer) {
-        String ans = answer.replace("<pre>", "<pre class='codeblock'>");
+
+        //TODO: what if there is <code> tag in the real code !?
+        String ans = answer.replace("<pre>", "<pre class='codeblock'>")
+                .replaceAll("<code>(?!.*</pre>)", "<code class='inlinecode'>");
         answerDescription.setText(getModifiedText(ans));
     }
 
@@ -52,8 +55,9 @@ public class SearchItemUi {
     private String getModifiedText(String rawText) {
 
         String text = rawText.replace("\\n", "");
-        String codeBlockStyle = ".codeblock{color:pink;background-color:white;padding:5px;margin:5px;}";
-        return String.format("<html><style>" + codeBlockStyle + "</style><div WIDTH=%d>%s</div></html>", 500, text);
+        String codeBlockStyle = ".codeblock{background-color:white;padding:5px;margin:5px;}";
+        String inlineCodeStyle = ".inlinecode{background-color:white;} a{text-decoration: none;color: unset;}";
+        return String.format("<html><style>" + codeBlockStyle + inlineCodeStyle + "</style><div WIDTH=%d>%s</div></html>", 500, text);
     }
 
     private void setItemBorder(JComponent jComponent) {
