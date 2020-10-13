@@ -37,7 +37,8 @@ public class SearchItemUi {
     }
 
     public void setAnswer(String answer) {
-        answerDescription.setText(getModifiedText(answer));
+        String ans = answer.replace("<pre>", "<pre class='codeblock'>");
+        answerDescription.setText(getModifiedText(ans));
     }
 
     public void setQuestion(String question) {
@@ -51,7 +52,8 @@ public class SearchItemUi {
     private String getModifiedText(String rawText) {
 
         String text = rawText.replace("\\n", "");
-        return String.format("<html><div WIDTH=%d>%s</div></html>", 500, text);
+        String codeBlockStyle = ".codeblock{color:pink;background-color:white;padding:5px;margin:5px;}";
+        return String.format("<html><style>" + codeBlockStyle + "</style><div WIDTH=%d>%s</div></html>", 500, text);
     }
 
     private void setItemBorder(JComponent jComponent) {
