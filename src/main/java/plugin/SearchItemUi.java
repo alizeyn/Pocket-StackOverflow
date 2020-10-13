@@ -11,9 +11,9 @@ public class SearchItemUi {
 
     private JPanel searchToolWindowContent;
     private JLabel questionTitle;
-    private JLabel questionDescription;
     private JLabel answerTitle;
-    private JLabel answerDescription;
+    private JTextPane questionDescription;
+    private JTextPane answerDescription;
 
     public SearchItemUi(ParseResult searchItem) {
 
@@ -56,8 +56,11 @@ public class SearchItemUi {
 
         String text = rawText.replace("\\n", "");
         String codeBlockStyle = ".codeblock{background-color:white;padding:5px;margin:5px;}";
-        String inlineCodeStyle = ".inlinecode{background-color:white;} a{text-decoration: none;color: unset;}";
-        return String.format("<html><style>" + codeBlockStyle + inlineCodeStyle + "</style><div WIDTH=%d>%s</div></html>", 500, text);
+//        String codeBlockStyle = ".codeblock{background-color:white;}";
+//        String inlineCodeStyle = ".inlinecode{background-color:white;} a{text-decoration: none;color: unset;}";
+        String inlineCodeStyle = ".inlinecode{background-color:white;}";
+//        return String.format("<html><style>" + codeBlockStyle + inlineCodeStyle + "</style><div WIDTH=%d>%s</div></html>", 500, text);
+        return String.format("<html><div WIDTH=%d>%s</div></html>", 550, text);
     }
 
     private void setItemBorder(JComponent jComponent) {
@@ -69,8 +72,11 @@ public class SearchItemUi {
     private void setLookAndFeel() {
 
         setItemBorder(searchToolWindowContent);
-
         JBLabel jbLabel = new JBLabel();
         questionTitle.setUI(jbLabel.getUI());
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
     }
 }

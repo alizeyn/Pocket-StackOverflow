@@ -26,27 +26,33 @@
           <text value="Answer"/>
         </properties>
       </component>
-      <component id="5b75b" class="javax.swing.JLabel" binding="questionDescription">
-        <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="---"/>
-        </properties>
-      </component>
-      <component id="b82ca" class="javax.swing.JLabel" binding="answerDescription">
-        <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="---"/>
-        </properties>
-      </component>
       <vspacer id="8a41">
         <constraints>
           <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
+      <component id="81404" class="javax.swing.JTextPane" binding="questionDescription">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <contentType value="text/html"/>
+          <editable value="false"/>
+        </properties>
+      </component>
+      <component id="b931" class="javax.swing.JTextPane" binding="answerDescription">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <contentType value="text/html"/>
+          <editable value="false"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>
