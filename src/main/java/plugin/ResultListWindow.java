@@ -23,10 +23,7 @@ public class ResultListWindow extends SimpleToolWindowPanel {
         super(true, false);
 
         contentHolder = new JPanel();
-
-//        contentHolder.setMaximumSize(new Dimension(400, -1));
-        contentHolder.setPreferredSize(new Dimension(400, -1));
-
+        contentHolder.setName("My name is beautiful panel");
         BoxLayout boxLayout = new BoxLayout(contentHolder, BoxLayout.Y_AXIS);
 
         contentHolder.setLayout(boxLayout);
@@ -36,9 +33,9 @@ public class ResultListWindow extends SimpleToolWindowPanel {
 
 
         scrollPanel = new JBScrollPane(contentHolder,
-                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPanel.setName("my name is beautiful scrollbar");
         contentHolder.add(new CenterMessage().getContentHolder());
     }
 

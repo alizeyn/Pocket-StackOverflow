@@ -1,8 +1,13 @@
 package plugin;
 
+import com.intellij.notification.NotificationType;
 import com.intellij.ui.JBColor;
+import com.intellij.ui.components.JBScrollPane;
 import com.intellij.util.ui.JBUI;
+import lombok.Data;
+import model.Answer;
 import model.ParseResult;
+import model.Question;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -12,24 +17,34 @@ import javax.swing.text.Element;
 import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLDocument;
 import java.awt.*;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+@Data
 public class SearchItemUi {
+
+    private ParseResult resultModel;
 
     private JPanel searchToolWindowContent;
     private JLabel questionTitle;
     private JLabel answerTitle;
     private JTextPane questionDescription;
     private JTextPane answerDescription;
+    private JButton moreAnswersButton;
+    private JButton openWebsiteButton;
+    private JButton cpQuestionLinkButton;
+    private JButton cpAnswerLinkButton;
 
     public SearchItemUi(ParseResult searchItem) {
 
+        resultModel = searchItem;
         setQuestion(searchItem.getQuestion().getBody());
         setAnswer(searchItem.getAnswers().get(0).getBody());
+        listeners();
     }
 
     public SearchItemUi(int i) {
@@ -38,6 +53,78 @@ public class SearchItemUi {
         setQuestion(String.valueOf(i));
     }
 
+    public void listeners() {
+
+        openWebsiteButton.addActionListener(actionEvent -> {
+            try {
+                Question question = resultModel.getQuestion();
+                Desktop desktop = Desktop.getDesktop();
+                URI uri = URI.create(question.getLink());
+                desktop.browse(uri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        cpQuestionLinkButton.addActionListener(actionEvent -> {
+
+            Question question = resultModel.getQuestion();
+            String questionLink = question.getLink();
+            copyToClipboard(questionLink);
+        });
+
+        cpAnswerLinkButton.addActionListener(actionEvent -> {
+
+            Answer firstAnswer = resultModel.getAnswers().get(0);
+            String answerLink = firstAnswer.getLink();
+            copyToClipboard(answerLink);
+        });
+
+        moreAnswersButton.addActionListener(actionEvent -> {
+
+            AnswersList answersList = new AnswersList();
+//            JPanel panel = (JPanel) searchToolWindowContent.getParent();
+            Container panel = searchToolWindowContent.getParent();
+            Container panel2 = panel.getParent();
+            if (panel instanceof JBScrollPane) {
+                System.out.println("scrollbar");
+            }
+            if (panel instanceof JPanel) {
+                System.out.println("jpanel");
+            }
+            if (panel2 instanceof JBScrollPane) {
+                System.out.println("scrollbar");
+            }
+            if (panel2 instanceof JPanel) {
+                System.out.println("jpanel");
+            }
+
+            System.out.println("name 1 is " + panel.getName());
+            System.out.println("name 2 is " + panel2.getName());
+//            Component[] children = panel.getComponents();
+//            panel.removeAll();
+//            panel.add(answersList.getContentHolder());
+//            answersList.setOnBackClickedListener(action -> {
+//                panel.removeAll();
+//                for (Component child : children) {
+//                    panel.add(child);
+//                }
+//            });
+        });
+    }
+
+    private void copyToClipboard(String text) {
+
+        Toolkit.getDefaultToolkit()
+                .getSystemClipboard()
+                .setContents(
+                        new StringSelection(text),
+                        null
+                );
+
+        NotificationManager.showMyMessage("Link Copied To Clipboard!",
+                NotificationType.INFORMATION, 3000);
+    }
 
     public JPanel getContent() {
         return searchToolWindowContent;
