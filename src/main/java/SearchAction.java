@@ -31,6 +31,8 @@ public class SearchAction extends AnAction {
             SearchToolWindowFactory.ProjectService projectService = ServiceManager.getService(e.getProject(), SearchToolWindowFactory.ProjectService.class);
             ResultListWindow searchToolWindow = projectService.getSearchToolWindow();
 
+            searchToolWindow.setProgressView();
+
             RetrofitFactory.getInstance()
                     .getSearchRetrofit()
                     .searchStackOverflow(selectedText)

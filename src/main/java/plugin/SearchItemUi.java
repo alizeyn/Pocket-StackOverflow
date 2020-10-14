@@ -75,7 +75,7 @@ public class SearchItemUi {
         String contentHolderStyle = "img{max-width:200px;}";
         String inlineCodeStyle = String.format(".inlinecode{background-color:%s;}", hexColor);
 
-        return String.format("<html><style>" + codeBlockStyle + inlineCodeStyle + contentHolderStyle + "</style><dev class='contentholder'>%s</dev></html>", text);
+        return String.format("<html><style>" + codeBlockStyle + inlineCodeStyle + contentHolderStyle + "</style><dev>%s</dev></html>", text);
     }
 
     void setItemBorder(JComponent jComponent) {
