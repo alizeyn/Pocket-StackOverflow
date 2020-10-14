@@ -10,6 +10,7 @@ import model.ParseResult;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -23,7 +24,6 @@ public class ResultListWindow extends SimpleToolWindowPanel {
         super(true, false);
 
         contentHolder = new JPanel();
-        contentHolder.setName("My name is beautiful panel");
         BoxLayout boxLayout = new BoxLayout(contentHolder, BoxLayout.Y_AXIS);
 
         contentHolder.setLayout(boxLayout);
@@ -31,11 +31,20 @@ public class ResultListWindow extends SimpleToolWindowPanel {
         Border border = JBUI.Borders.empty(16);
         contentHolder.setBorder(border);
 
-
         scrollPanel = new JBScrollPane(contentHolder,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPanel.setName("my name is beautiful scrollbar");
+        scrollPanel.setName("scrollPane");
+
+        Arrays.asList(scrollPanel.getComponents()).forEach(c -> {
+            System.out.println(c.getName());
+        });
+
+        System.out.println("HERE IS THE REST OF THEM ---->> \n\n\n\n\n");
+        Arrays.asList(contentHolder.getComponents()).forEach(c -> {
+            System.out.println(c.getName());
+        });
+
         contentHolder.add(new CenterMessage().getContentHolder());
     }
 

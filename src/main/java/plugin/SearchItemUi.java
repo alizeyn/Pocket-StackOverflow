@@ -2,7 +2,6 @@ package plugin;
 
 import com.intellij.notification.NotificationType;
 import com.intellij.ui.JBColor;
-import com.intellij.ui.components.JBScrollPane;
 import com.intellij.util.ui.JBUI;
 import lombok.Data;
 import model.Answer;
@@ -83,33 +82,17 @@ public class SearchItemUi {
         moreAnswersButton.addActionListener(actionEvent -> {
 
             AnswersList answersList = new AnswersList();
-//            JPanel panel = (JPanel) searchToolWindowContent.getParent();
             Container panel = searchToolWindowContent.getParent();
-            Container panel2 = panel.getParent();
-            if (panel instanceof JBScrollPane) {
-                System.out.println("scrollbar");
-            }
-            if (panel instanceof JPanel) {
-                System.out.println("jpanel");
-            }
-            if (panel2 instanceof JBScrollPane) {
-                System.out.println("scrollbar");
-            }
-            if (panel2 instanceof JPanel) {
-                System.out.println("jpanel");
-            }
 
-            System.out.println("name 1 is " + panel.getName());
-            System.out.println("name 2 is " + panel2.getName());
-//            Component[] children = panel.getComponents();
-//            panel.removeAll();
-//            panel.add(answersList.getContentHolder());
-//            answersList.setOnBackClickedListener(action -> {
-//                panel.removeAll();
-//                for (Component child : children) {
-//                    panel.add(child);
-//                }
-//            });
+            Component[] children = panel.getComponents();
+            panel.removeAll();
+            panel.add(answersList.getContentHolder());
+            answersList.setOnBackClickedListener(action -> {
+                panel.removeAll();
+                for (Component child : children) {
+                    panel.add(child);
+                }
+            });
         });
     }
 
