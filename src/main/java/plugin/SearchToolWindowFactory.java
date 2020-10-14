@@ -15,11 +15,8 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
 
         ResultListWindow searchToolWindow = new ResultListWindow(toolWindow);
-        searchToolWindow.updateData();
-
         ProjectService projectService = ServiceManager.getService(project, ProjectService.class);
         projectService.setSearchToolWindow(searchToolWindow);
-
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
         Content content = contentFactory.createContent(searchToolWindow.getContent(), "Son of Man", false);
         toolWindow.getContentManager().addContent(content);
