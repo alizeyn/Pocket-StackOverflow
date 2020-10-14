@@ -4,9 +4,16 @@ import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.ui.Messages;
+import model.ParseResult;
+import network.RetrofitFactory;
 import org.jetbrains.annotations.NotNull;
 import plugin.ResultListWindow;
 import plugin.SearchToolWindowFactory;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import java.util.List;
 
 public class SearchAction extends AnAction {
 
@@ -23,25 +30,25 @@ public class SearchAction extends AnAction {
         } else {
             SearchToolWindowFactory.ProjectService projectService = ServiceManager.getService(e.getProject(), SearchToolWindowFactory.ProjectService.class);
             ResultListWindow searchToolWindow = projectService.getSearchToolWindow();
-//
-//            RetrofitFactory.getInstance()
-//                    .getSearchRetrofit()
-//                    .searchStackOverflow(selectedText)
-//                    .enqueue(new Callback<List<ParseResult>>() {
-//                        @Override
-//                        public void onResponse(Call<List<ParseResult>> call, Response<List<ParseResult>> response) {
-//                            System.out.println(response.body().size());
-//                            ParseResult result = response.body().get(0);
-//                            searchToolWindow.updateData(response.body().subList(0, 3));
-////                            searchToolWindow.setQuestion(result.getQuestion().getTitle());
-////                            searchToolWindow.setAnswer(result.getAnswers().get(0).getBody());
-//                        }
-//
-//                        @Override
-//                        public void onFailure(Call<List<ParseResult>> call, Throwable t) {
-//                            t.printStackTrace();
-//                        }
-//                    });
+
+            RetrofitFactory.getInstance()
+                    .getSearchRetrofit()
+                    .searchStackOverflow(selectedText)
+                    .enqueue(new Callback<List<ParseResult>>() {
+                        @Override
+                        public void onResponse(Call<List<ParseResult>> call, Response<List<ParseResult>> response) {
+                            System.out.println(response.body().size());
+                            ParseResult result = response.body().get(0);
+                            searchToolWindow.updateData(response.body());
+//                            searchToolWindow.setQuestion(result.getQuestion().getTitle());
+//                            searchToolWindow.setAnswer(result.getAnswers().get(0).getBody());
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<ParseResult>> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+                    });
         }
 
 

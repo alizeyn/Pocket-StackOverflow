@@ -1,11 +1,22 @@
 package plugin;
 
-import com.intellij.ui.components.JBLabel;
+import com.intellij.ui.JBColor;
 import com.intellij.util.ui.JBUI;
 import model.ParseResult;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.DefaultCaret;
+import javax.swing.text.Element;
+import javax.swing.text.html.HTML;
+import javax.swing.text.html.HTMLDocument;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class SearchItemUi {
 
@@ -45,7 +56,9 @@ public class SearchItemUi {
     }
 
     public void setQuestion(String question) {
-        questionDescription.setText(getModifiedText(question));
+        String q = question.replace("<pre>", "<pre class='codeblock'>")
+                .replaceAll("<code>(?!.*</pre>)", "<code class='inlinecode'>");
+        questionDescription.setText(getModifiedText(q));
     }
 
     public void setQuestionTitle(String title) {
@@ -55,15 +68,17 @@ public class SearchItemUi {
     private String getModifiedText(String rawText) {
 
         String text = rawText.replace("\\n", "");
-        String codeBlockStyle = ".codeblock{background-color:white;padding:5px;margin:5px;}";
-//        String codeBlockStyle = ".codeblock{background-color:white;}";
-//        String inlineCodeStyle = ".inlinecode{background-color:white;} a{text-decoration: none;color: unset;}";
-        String inlineCodeStyle = ".inlinecode{background-color:white;}";
-//        return String.format("<html><style>" + codeBlockStyle + inlineCodeStyle + "</style><div WIDTH=%d>%s</div></html>", 500, text);
-        return String.format("<html><div WIDTH=%d>%s</div></html>", 550, text);
+        JBColor color = new JBColor(JBColor.WHITE, JBColor.BLACK);
+        String hexColor = String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
+
+        String codeBlockStyle = ".codeblock{font-size:xx-small; background-color:white;padding:5px;margin:5px;}";
+        String contentHolderStyle = "img{max-width:200px;}";
+        String inlineCodeStyle = String.format(".inlinecode{background-color:%s;}", hexColor);
+
+        return String.format("<html><style>" + codeBlockStyle + inlineCodeStyle + contentHolderStyle + "</style><dev class='contentholder'>%s</dev></html>", text);
     }
 
-    private void setItemBorder(JComponent jComponent) {
+    void setItemBorder(JComponent jComponent) {
 
         Border border = JBUI.Borders.empty(16);
         jComponent.setBorder(border);
@@ -72,11 +87,49 @@ public class SearchItemUi {
     private void setLookAndFeel() {
 
         setItemBorder(searchToolWindowContent);
-        JBLabel jbLabel = new JBLabel();
-        questionTitle.setUI(jbLabel.getUI());
+        DefaultCaret caret = (DefaultCaret) questionDescription.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
+        DefaultCaret caret2 = (DefaultCaret) answerDescription.getCaret();
+        caret2.setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
+        questionDescription.addMouseListener(new HyperlinkMouseListener());
+        answerDescription.addMouseListener(new HyperlinkMouseListener());
     }
 
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
+    private Element getHyperlinkElement(MouseEvent event) {
+        JEditorPane editor = (JEditorPane) event.getSource();
+        int pos = editor.getUI().viewToModel(editor, event.getPoint());
+        if (pos >= 0 && editor.getDocument() instanceof HTMLDocument) {
+            HTMLDocument hdoc = (HTMLDocument) editor.getDocument();
+            Element elem = hdoc.getCharacterElement(pos);
+            if (elem.getAttributes().getAttribute(HTML.Tag.A) != null) {
+                return elem;
+            }
+        }
+        return null;
+    }
+
+    private final class HyperlinkMouseListener extends MouseAdapter {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                Element h = getHyperlinkElement(e);
+                if (h != null) {
+                    Object attribute = h.getAttributes().getAttribute(HTML.Tag.A);
+                    if (attribute instanceof AttributeSet) {
+                        AttributeSet set = (AttributeSet) attribute;
+                        String href = (String) set.getAttribute(HTML.Attribute.HREF);
+                        if (href != null) {
+                            try {
+                                Desktop.getDesktop().browse(new URI(href));
+                            } catch (IOException e1) {
+                                e1.printStackTrace();
+                            } catch (URISyntaxException e1) {
+                                e1.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
