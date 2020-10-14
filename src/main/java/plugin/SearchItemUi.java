@@ -82,8 +82,13 @@ public class SearchItemUi {
         moreAnswersButton.addActionListener(actionEvent -> {
 
             AnswersList answersList = new AnswersList();
-            Container panel = searchToolWindowContent.getParent();
 
+            Container parentCardView = searchToolWindowContent.getParent();
+            do {
+                parentCardView = parentCardView.getParent();
+            } while ("ParentCardView".equalsIgnoreCase(parentCardView.getName()));
+
+            Container panel = parentCardView;
             Component[] children = panel.getComponents();
             panel.removeAll();
             panel.add(answersList.getContentHolder());
@@ -191,9 +196,7 @@ public class SearchItemUi {
                         if (href != null) {
                             try {
                                 Desktop.getDesktop().browse(new URI(href));
-                            } catch (IOException e1) {
-                                e1.printStackTrace();
-                            } catch (URISyntaxException e1) {
+                            } catch (IOException | URISyntaxException e1) {
                                 e1.printStackTrace();
                             }
                         }

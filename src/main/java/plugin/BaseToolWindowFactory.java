@@ -8,29 +8,32 @@ import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import org.jetbrains.annotations.NotNull;
 
-public class SearchToolWindowFactory implements ToolWindowFactory {
+public class BaseToolWindowFactory implements ToolWindowFactory {
 
 
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
 
-        ResultListWindow searchToolWindow = new ResultListWindow(toolWindow);
+        BaseToolWindow baseToolWindow = new BaseToolWindow(toolWindow);
+
         ProjectService projectService = ServiceManager.getService(project, ProjectService.class);
-        projectService.setSearchToolWindow(searchToolWindow);
+        projectService.setBaseToolWindow(baseToolWindow);
+
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
-        Content content = contentFactory.createContent(searchToolWindow.getContent(), "Son of Man", false);
+        Content content = contentFactory.createContent(baseToolWindow.getContent(), "Son of Man", false);
         toolWindow.getContentManager().addContent(content);
     }
+
     public static class ProjectService {
 
-        private ResultListWindow resultListWindow;
+        private BaseToolWindow baseToolWindow;
 
-        public ResultListWindow getSearchToolWindow() {
-            return resultListWindow;
+        public BaseToolWindow getBaseToolWindow() {
+            return baseToolWindow;
         }
 
-        void setSearchToolWindow(ResultListWindow resultListWindow) {
-            this.resultListWindow = resultListWindow;
+        void setBaseToolWindow(BaseToolWindow baseToolWindow) {
+            this.baseToolWindow = baseToolWindow;
         }
     }
 }

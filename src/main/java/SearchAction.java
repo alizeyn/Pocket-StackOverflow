@@ -7,8 +7,9 @@ import com.intellij.openapi.ui.Messages;
 import model.ParseResult;
 import network.RetrofitFactory;
 import org.jetbrains.annotations.NotNull;
-import plugin.ResultListWindow;
-import plugin.SearchToolWindowFactory;
+import plugin.BaseToolWindow;
+import plugin.BaseToolWindowFactory;
+import plugin.ResultListView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,10 +29,12 @@ public class SearchAction extends AnAction {
         if (selectedText == null || selectedText.isEmpty()) {
             Messages.showErrorDialog("You must select a text to search", "Error");
         } else {
-            SearchToolWindowFactory.ProjectService projectService = ServiceManager.getService(e.getProject(), SearchToolWindowFactory.ProjectService.class);
-            ResultListWindow searchToolWindow = projectService.getSearchToolWindow();
+            BaseToolWindowFactory.ProjectService projectService = ServiceManager.getService(e.getProject(), BaseToolWindowFactory.ProjectService.class);
+            BaseToolWindow baseToolWindow = projectService.getBaseToolWindow();
 
-            searchToolWindow.setProgressView();
+            ResultListView resultListView = new ResultListView();
+            baseToolWindow.addView(resultListView.getContent());
+            resultListView.setProgressView();
 
             RetrofitFactory.getInstance()
                     .getSearchRetrofit()
@@ -41,9 +44,7 @@ public class SearchAction extends AnAction {
                         public void onResponse(Call<List<ParseResult>> call, Response<List<ParseResult>> response) {
                             System.out.println(response.body().size());
                             ParseResult result = response.body().get(0);
-                            searchToolWindow.updateData(response.body());
-//                            searchToolWindow.setQuestion(result.getQuestion().getTitle());
-//                            searchToolWindow.setAnswer(result.getAnswers().get(0).getBody());
+                            resultListView.updateData(response.body());
                         }
 
                         @Override
@@ -52,8 +53,6 @@ public class SearchAction extends AnAction {
                         }
                     });
         }
-
-
     }
 
     @Override
@@ -61,6 +60,4 @@ public class SearchAction extends AnAction {
         super.update(e);
         e.getPresentation().setIcon(PluginIcons.SON_OF_MAN);
     }
-
-
 }

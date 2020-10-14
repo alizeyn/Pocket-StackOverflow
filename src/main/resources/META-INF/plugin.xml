@@ -18,19 +18,16 @@
                 id="ir.alizeyn.searchtoolwindow"
                 icon="/icons/toolwin_code.svg"
                 anchor="right"
-                factoryClass="plugin.SearchToolWindowFactory"/>
-        <projectService serviceImplementation="plugin.SearchToolWindowFactory$ProjectService"/>
+                factoryClass="plugin.BaseToolWindowFactory"/>
+        <projectService serviceImplementation="plugin.BaseToolWindowFactory$ProjectService"/>
 
-<!--        <toolWindow id="Sample Calendar"-->
-<!--                    secondary="true"-->
-<!--                    icon="AllIcons.General.Modified"-->
-<!--                    anchor="right"-->
-<!--                    factoryClass="plugin.MyToolWindowFactory"/>-->
     </extensions>
 
     <actions>
         <!-- Add your actions here -->
-        <action id="SearchAction" class="SearchAction" text="Fix The Damn Code">
+        <action id="SearchAction"
+                class="SearchAction"
+                text="Fix The Damn Code">
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
         </action>
     </actions>

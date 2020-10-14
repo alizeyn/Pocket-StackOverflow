@@ -1,7 +1,5 @@
 package plugin;
 
-import com.intellij.openapi.ui.SimpleToolWindowPanel;
-import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.util.ui.JBUI;
 import lombok.extern.slf4j.Slf4j;
@@ -10,18 +8,15 @@ import model.ParseResult;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
-public class ResultListWindow extends SimpleToolWindowPanel {
+public class ResultListView {
 
     private final JPanel contentHolder;
-    private final JBScrollPane scrollPanel;
+    private final JBScrollPane scrollPane;
 
-    public ResultListWindow(ToolWindow toolWindow) {
-
-        super(true, false);
+    public ResultListView() {
 
         contentHolder = new JPanel();
         BoxLayout boxLayout = new BoxLayout(contentHolder, BoxLayout.Y_AXIS);
@@ -31,25 +26,13 @@ public class ResultListWindow extends SimpleToolWindowPanel {
         Border border = JBUI.Borders.empty(16);
         contentHolder.setBorder(border);
 
-        scrollPanel = new JBScrollPane(contentHolder,
+        scrollPane = new JBScrollPane(contentHolder,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPanel.setName("scrollPane");
-
-        Arrays.asList(scrollPanel.getComponents()).forEach(c -> {
-            System.out.println(c.getName());
-        });
-
-        System.out.println("HERE IS THE REST OF THEM ---->> \n\n\n\n\n");
-        Arrays.asList(contentHolder.getComponents()).forEach(c -> {
-            System.out.println(c.getName());
-        });
-
-        contentHolder.add(new CenterMessage().getContentHolder());
     }
 
-    public JBScrollPane getContent() {
-        return scrollPanel;
+    public JComponent getContent() {
+        return scrollPane;
     }
 
     //Test function
