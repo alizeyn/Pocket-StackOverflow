@@ -1,6 +1,5 @@
 package sonofman.ui;
 
-import com.intellij.util.ui.JBUI;
 import sonofman.model.Answer;
 import sonofman.plugin.HyperlinkMouseListener;
 import sonofman.util.HtmlTweak;
@@ -8,7 +7,8 @@ import sonofman.util.Tools;
 import sonofman.util.UiUtil;
 
 import javax.swing.*;
-import javax.swing.border.Border;
+import java.time.Instant;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -44,10 +44,8 @@ public class AnswerItem {
 
         votesLabel.setText(String.valueOf(answer.getVotes()));
 
-        System.out.println(answer.getCreationData());
-        Date date = new Date(answer.getCreationData());
-        String formattedDate = date.getYear() +"/"+date.getMonth()+"/"+date.getDay();
-        answerDateLabel.setText(formattedDate);
+        long date = answer.getCreationData();
+        answerDateLabel.setText(unixTimeStampToDateFormat(date));
     }
 
     private void listeners() {
@@ -65,15 +63,17 @@ public class AnswerItem {
         return contentHolder;
     }
 
-    void setItemBorder(JComponent jComponent) {
+    private String unixTimeStampToDateFormat(long unixTimeStamp) {
 
-        Border border = JBUI.Borders.empty(16);
-        jComponent.setBorder(border);
+        Date date = Date.from(Instant.ofEpochSecond(answer.getCreationData()));
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.YEAR) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.DAY_OF_MONTH);
     }
 
     private void setLookAndFeel() {
 
-        setItemBorder(contentHolder);
+        UiUtil.setItemBorder(contentHolder);
         UiUtil.disableUpdateCaret(answerBodyTextPane);
         HyperlinkMouseListener hyperlinkListener = new HyperlinkMouseListener();
         answerBodyTextPane.addMouseListener(hyperlinkListener);

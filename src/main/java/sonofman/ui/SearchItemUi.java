@@ -1,6 +1,5 @@
 package sonofman.ui;
 
-import com.intellij.util.ui.JBUI;
 import lombok.Data;
 import sonofman.model.Answer;
 import sonofman.model.ParseResult;
@@ -11,7 +10,6 @@ import sonofman.util.Tools;
 import sonofman.util.UiUtil;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
@@ -34,6 +32,7 @@ public class SearchItemUi {
     public SearchItemUi(ParseResult searchItem) {
 
         resultModel = searchItem;
+        setLookAndFeel();
         setQuestion(searchItem.getQuestion().getBody());
         setAnswer(searchItem.getAnswers().get(0).getBody());
         listeners();
@@ -111,15 +110,10 @@ public class SearchItemUi {
         questionTitle.setText(HtmlTweak.refineHtmlResponse(title));
     }
 
-    void setItemBorder(JComponent jComponent) {
-
-        Border border = JBUI.Borders.empty(16);
-        jComponent.setBorder(border);
-    }
 
     private void setLookAndFeel() {
 
-        setItemBorder(searchToolWindowContent);
+        UiUtil.setItemBorder(searchToolWindowContent);
         UiUtil.disableUpdateCaret(questionDescription);
         UiUtil.disableUpdateCaret(answerDescription);
         HyperlinkMouseListener hyperlinkListener = new HyperlinkMouseListener();
