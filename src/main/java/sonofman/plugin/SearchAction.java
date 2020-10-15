@@ -66,16 +66,18 @@ public class SearchAction extends AnAction {
 
                             if (response.isSuccessful() && responseBody != null) {
                                 resultListView.updateData(responseBody);
-                                Messages.showInfoMessage(response.message(), "Success");
+
                             } else {
                                 String errorMessage = responseBody == null
                                         ? "No response received"
                                         : response.message();
 
-                                Messages.showErrorDialog(errorMessage, "Server Error");
-                                baseToolWindow.removeAll();
-                                baseToolWindow.addView(new CenterMessageView().getContentHolder());
-                                baseToolWindow.updateView();
+                                ApplicationManager.getApplication().invokeLater(() -> {
+                                    Messages.showErrorDialog(errorMessage, "Server Error");
+                                    baseToolWindow.removeAll();
+                                    baseToolWindow.addView(new CenterMessageView().getContentHolder());
+                                    baseToolWindow.updateView();
+                                });
                             }
                         }
 
