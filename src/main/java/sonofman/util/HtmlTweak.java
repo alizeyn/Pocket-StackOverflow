@@ -14,7 +14,7 @@ public class HtmlTweak {
         JBColor color = new JBColor(JBColor.WHITE, JBColor.BLACK);
         String hexColor = String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
 
-        String codeBlockStyle = ".codeblock{font-size:xx-small; background-color:white;padding:5px;margin:5px;}";
+        String codeBlockStyle = ".codeblock{font-size:xx-small; background-color:" + hexColor + ";padding:5px;margin:5px;}";
         String contentHolderStyle = "img{max-width:200px;}";
         String inlineCodeStyle = String.format(".inlinecode{background-color:%s;}", hexColor);
 

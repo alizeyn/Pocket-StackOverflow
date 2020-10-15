@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.net.URI;
 
 @Data
-public class SearchItemUi {
+public class SearchItemView {
 
     private ParseResult resultModel;
 
@@ -29,13 +29,16 @@ public class SearchItemUi {
     private JButton cpQuestionLinkButton;
     private JButton cpAnswerLinkButton;
 
-    public SearchItemUi(ParseResult searchItem) {
+    public SearchItemView(ParseResult searchItem) {
 
         resultModel = searchItem;
+
         setLookAndFeel();
-        setQuestion(searchItem.getQuestion().getBody());
-        setAnswer(searchItem.getAnswers().get(0).getBody());
         listeners();
+
+        setQuestion(searchItem.getQuestion().getBody());
+        Answer bestAnswer = searchItem.getAnswers().get(0);
+        setAnswer(bestAnswer.getBody());
     }
 
     public void listeners() {
@@ -94,10 +97,6 @@ public class SearchItemUi {
         return searchToolWindowContent;
     }
 
-    public void setQuestionLabel(String question) {
-        questionTitle.setText(question);
-    }
-
     public void setAnswer(String answer) {
         answerDescription.setText(HtmlTweak.refineHtmlResponse(answer));
     }
@@ -105,11 +104,6 @@ public class SearchItemUi {
     public void setQuestion(String question) {
         questionDescription.setText(HtmlTweak.refineHtmlResponse(question));
     }
-
-    public void setQuestionTitle(String title) {
-        questionTitle.setText(HtmlTweak.refineHtmlResponse(title));
-    }
-
 
     private void setLookAndFeel() {
 

@@ -8,7 +8,7 @@ import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import org.jetbrains.annotations.NotNull;
 import sonofman.ui.BaseToolWindow;
-import sonofman.ui.CenterMessage;
+import sonofman.ui.CenterMessageView;
 
 public class BaseToolWindowFactory implements ToolWindowFactory {
 
@@ -17,7 +17,7 @@ public class BaseToolWindowFactory implements ToolWindowFactory {
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
 
         BaseToolWindow baseToolWindow = new BaseToolWindow(toolWindow);
-        CenterMessage centerMessage = new CenterMessage();
+        CenterMessageView centerMessage = new CenterMessageView();
         baseToolWindow.addView(centerMessage.getContentHolder());
 
         ProjectService projectService = ServiceManager.getService(project, ProjectService.class);

@@ -12,7 +12,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-public class AnswerItem {
+public class AnswerItemView {
 
     private final Answer answer;
 
@@ -23,7 +23,7 @@ public class AnswerItem {
     private JLabel votesLabel;
     private JPanel contentHolder;
 
-    public AnswerItem(Answer answer) {
+    public AnswerItemView(Answer answer) {
 
         this.answer = answer;
         setLookAndFeel();

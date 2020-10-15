@@ -17,11 +17,11 @@ public class AnswerListView {
     private final JBScrollPane scrollPane;
     private final JButton backButton;
 
-    private final TopBackPanel topBackPanel;
+    private final TopBackView topBackPanel;
 
     public AnswerListView() {
 
-        topBackPanel = new TopBackPanel();
+        topBackPanel = new TopBackView();
         backButton = topBackPanel.getBackToQuestionButton();
 
         contentHolder = new JPanel();
@@ -55,7 +55,7 @@ public class AnswerListView {
 
         for (Answer answer :
                 answers) {
-            AnswerItem answerItem = new AnswerItem(answer);
+            AnswerItemView answerItem = new AnswerItemView(answer);
             contentHolder.add(answerItem.getContentHolder());
             contentHolder.add(new JSeparator());
         }

@@ -5,12 +5,12 @@ import lombok.Data;
 import javax.swing.*;
 
 @Data
-public class TopBackPanel {
+public class TopBackView {
 
     private JPanel contentHolder;
     private JButton backToQuestionButton;
 
-    public TopBackPanel() {
+    public TopBackView() {
 
     }
 }

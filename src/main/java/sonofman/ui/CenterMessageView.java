@@ -6,13 +6,13 @@ import lombok.Data;
 import javax.swing.*;
 
 @Data
-public class CenterMessage {
+public class CenterMessageView {
 
     private JPanel contentHolder;
     private JLabel messageLabel;
     private JLabel subMessageLabel;
 
-    public CenterMessage() {
+    public CenterMessageView() {
 
         contentHolder.setName("CenterMessage");
         messageLabel.setBorder(JBUI.Borders.emptyBottom(16));

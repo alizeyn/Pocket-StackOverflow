@@ -58,7 +58,7 @@ public class ResultListView {
 
         contentHolder.removeAll();
         resultList.forEach(result -> {
-            SearchItemUi itemUi = new SearchItemUi(result);
+            SearchItemView itemUi = new SearchItemView(result);
             JPanel panel = itemUi.getContent();
             panel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
