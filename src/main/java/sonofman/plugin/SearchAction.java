@@ -30,8 +30,12 @@ public class SearchAction extends AnAction {
         }
         if (selectedText == null || selectedText.isEmpty()) {
             Messages.showErrorDialog("You must select a text to search", "Error");
+        } else if (selectedText.length() < 20) {
+            Messages.showErrorDialog("Please Consider Search With More Than 20 Characters", "Error");
         } else {
-            BaseToolWindowFactory.ProjectService projectService = ServiceManager.getService(e.getProject(), BaseToolWindowFactory.ProjectService.class);
+            BaseToolWindowFactory.ProjectService projectService = ServiceManager.getService(e.getProject(),
+                    BaseToolWindowFactory.ProjectService.class);
+
             BaseToolWindow baseToolWindow = projectService.getBaseToolWindow();
             baseToolWindow.removeAll();
 
@@ -47,13 +51,12 @@ public class SearchAction extends AnAction {
                     .enqueue(new Callback<List<ParseResult>>() {
                         @Override
                         public void onResponse(Call<List<ParseResult>> call, Response<List<ParseResult>> response) {
-                            System.out.println(response.body().size());
                             resultListView.updateData(response.body());
-//                            baseToolWindow.updateView();
                         }
 
                         @Override
                         public void onFailure(Call<List<ParseResult>> call, Throwable t) {
+                            Messages.showErrorDialog(t.getMessage(), "Connection Error");
                             t.printStackTrace();
                         }
                     });

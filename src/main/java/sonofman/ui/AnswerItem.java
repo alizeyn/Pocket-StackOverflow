@@ -73,7 +73,6 @@ public class AnswerItem {
 
     private void setLookAndFeel() {
 
-        UiUtil.setItemBorder(contentHolder);
         UiUtil.disableUpdateCaret(answerBodyTextPane);
         HyperlinkMouseListener hyperlinkListener = new HyperlinkMouseListener();
         answerBodyTextPane.addMouseListener(hyperlinkListener);

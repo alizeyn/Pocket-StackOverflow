@@ -113,7 +113,6 @@ public class SearchItemUi {
 
     private void setLookAndFeel() {
 
-        UiUtil.setItemBorder(searchToolWindowContent);
         UiUtil.disableUpdateCaret(questionDescription);
         UiUtil.disableUpdateCaret(answerDescription);
         HyperlinkMouseListener hyperlinkListener = new HyperlinkMouseListener();
