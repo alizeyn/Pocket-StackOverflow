@@ -1,15 +1,17 @@
+package sonofman;
+
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.ui.Messages;
-import model.ParseResult;
-import network.RetrofitFactory;
+import sonofman.model.ParseResult;
+import sonofman.network.RetrofitFactory;
 import org.jetbrains.annotations.NotNull;
-import plugin.BaseToolWindow;
-import plugin.BaseToolWindowFactory;
-import plugin.ResultListView;
+import sonofman.plugin.BaseToolWindow;
+import sonofman.plugin.BaseToolWindowFactory;
+import sonofman.plugin.ResultListView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

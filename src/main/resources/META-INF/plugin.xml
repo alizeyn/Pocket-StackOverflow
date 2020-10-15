@@ -18,15 +18,15 @@
                 id="ir.alizeyn.searchtoolwindow"
                 icon="/icons/toolwin_code.svg"
                 anchor="right"
-                factoryClass="plugin.BaseToolWindowFactory"/>
-        <projectService serviceImplementation="plugin.BaseToolWindowFactory$ProjectService"/>
+                factoryClass="sonofman.plugin.BaseToolWindowFactory"/>
+        <projectService serviceImplementation="sonofman.plugin.BaseToolWindowFactory$ProjectService"/>
 
     </extensions>
 
     <actions>
         <!-- Add your actions here -->
-        <action id="SearchAction"
-                class="SearchAction"
+        <action id="sonofman.SearchAction"
+                class="sonofman.SearchAction"
                 text="Fix The Damn Code">
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
         </action>

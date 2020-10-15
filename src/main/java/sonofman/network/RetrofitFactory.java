@@ -1,4 +1,4 @@
-package network;
+package sonofman.network;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

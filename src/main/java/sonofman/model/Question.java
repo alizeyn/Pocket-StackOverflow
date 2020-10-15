@@ -1,4 +1,4 @@
-package model;
+package sonofman.model;
 
 import lombok.Data;
 

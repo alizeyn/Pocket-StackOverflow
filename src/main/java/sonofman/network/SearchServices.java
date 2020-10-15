@@ -1,6 +1,6 @@
-package network;
+package sonofman.network;
 
-import model.ParseResult;
+import sonofman.model.ParseResult;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

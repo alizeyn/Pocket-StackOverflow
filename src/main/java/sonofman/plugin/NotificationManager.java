@@ -1,4 +1,4 @@
-package plugin;
+package sonofman.plugin;
 
 import com.intellij.notification.*;
 import com.intellij.openapi.application.ApplicationManager;

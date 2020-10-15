@@ -1,8 +1,8 @@
-package plugin;
+package sonofman.plugin;
 
 import com.intellij.ui.JBColor;
 import com.intellij.util.ui.JBUI;
-import model.Answer;
+import sonofman.model.Answer;
 
 import javax.swing.*;
 import javax.swing.border.Border;

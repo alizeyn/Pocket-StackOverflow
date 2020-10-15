@@ -1,4 +1,4 @@
-package plugin;
+package sonofman.plugin;
 
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;

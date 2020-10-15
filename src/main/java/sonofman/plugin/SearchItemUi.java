@@ -1,12 +1,12 @@
-package plugin;
+package sonofman.plugin;
 
 import com.intellij.notification.NotificationType;
 import com.intellij.ui.JBColor;
 import com.intellij.util.ui.JBUI;
 import lombok.Data;
-import model.Answer;
-import model.ParseResult;
-import model.Question;
+import sonofman.model.Answer;
+import sonofman.model.ParseResult;
+import sonofman.model.Question;
 
 import javax.swing.*;
 import javax.swing.border.Border;

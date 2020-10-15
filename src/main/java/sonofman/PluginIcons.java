@@ -1,3 +1,5 @@
+package sonofman;
+
 import com.intellij.openapi.util.IconLoader;
 
 import javax.swing.*;

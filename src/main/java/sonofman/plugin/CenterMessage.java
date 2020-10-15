@@ -1,4 +1,4 @@
-package plugin;
+package sonofman.plugin;
 
 import com.intellij.util.ui.JBUI;
 import lombok.Data;

@@ -1,9 +1,9 @@
-package plugin;
+package sonofman.plugin;
 
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.util.ui.JBUI;
 import lombok.extern.slf4j.Slf4j;
-import model.ParseResult;
+import sonofman.model.ParseResult;
 
 import javax.swing.*;
 import javax.swing.border.Border;
