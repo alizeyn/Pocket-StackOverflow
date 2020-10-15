@@ -1,4 +1,4 @@
-package sonofman.plugin;
+package sonofman.ui;
 
 import com.intellij.openapi.ui.SimpleToolWindowPanel;
 import com.intellij.openapi.wm.ToolWindow;

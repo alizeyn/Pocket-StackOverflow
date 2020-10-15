@@ -1,4 +1,4 @@
-package sonofman.plugin;
+package sonofman.ui;
 
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.util.ui.JBUI;

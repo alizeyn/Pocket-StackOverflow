@@ -25,8 +25,8 @@
 
     <actions>
         <!-- Add your actions here -->
-        <action id="sonofman.SearchAction"
-                class="sonofman.SearchAction"
+        <action id="sonofman.plugin.SearchAction"
+                class="sonofman.plugin.SearchAction"
                 text="Fix The Damn Code">
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
         </action>

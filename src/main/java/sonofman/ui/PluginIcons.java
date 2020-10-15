@@ -1,4 +1,4 @@
-package sonofman;
+package sonofman.ui;
 
 import com.intellij.openapi.util.IconLoader;
 

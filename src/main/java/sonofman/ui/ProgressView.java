@@ -1,4 +1,4 @@
-package sonofman.plugin;
+package sonofman.ui;
 
 import lombok.Data;
 

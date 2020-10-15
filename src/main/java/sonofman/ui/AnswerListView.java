@@ -1,4 +1,4 @@
-package sonofman.plugin;
+package sonofman.ui;
 
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.util.ui.JBUI;
@@ -55,8 +55,7 @@ public class AnswerListView {
 
         for (Answer answer :
                 answers) {
-            AnswerItem answerItem = new AnswerItem();
-            answerItem.setAnswer(answer);
+            AnswerItem answerItem = new AnswerItem(answer);
             contentHolder.add(answerItem.getContentHolder());
             contentHolder.add(new JSeparator());
         }

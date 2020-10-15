@@ -1,4 +1,4 @@
-package sonofman;
+package sonofman.plugin;
 
 import javax.swing.*;
 import javax.swing.text.AttributeSet;
