@@ -83,10 +83,10 @@ public class SearchItemUi {
 
             AnswersList answersList = new AnswersList();
 
-            Container parentCardView = searchToolWindowContent.getParent();
+            Container parentCardView = searchToolWindowContent;
             do {
                 parentCardView = parentCardView.getParent();
-            } while ("ParentCardView".equalsIgnoreCase(parentCardView.getName()));
+            } while (!"ParentCardView".equalsIgnoreCase(parentCardView.getName()));
 
             Container panel = parentCardView;
             Component[] children = panel.getComponents();
@@ -98,6 +98,8 @@ public class SearchItemUi {
                     panel.add(child);
                 }
             });
+            panel.revalidate();
+            panel.repaint();
         });
     }
 

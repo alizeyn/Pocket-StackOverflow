@@ -14,6 +14,7 @@ public class CenterMessage {
 
     public CenterMessage() {
 
+        contentHolder.setName("CenterMessage");
         messageLabel.setBorder(JBUI.Borders.emptyBottom(16));
     }
 }

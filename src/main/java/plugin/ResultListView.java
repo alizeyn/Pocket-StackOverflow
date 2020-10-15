@@ -57,7 +57,6 @@ public class ResultListView {
     public void updateData(List<ParseResult> resultList) {
 
         contentHolder.removeAll();
-
         resultList.forEach(result -> {
             SearchItemUi itemUi = new SearchItemUi(result);
             JPanel panel = itemUi.getContent();

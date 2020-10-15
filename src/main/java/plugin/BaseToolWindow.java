@@ -22,5 +22,13 @@ public class BaseToolWindow  extends SimpleToolWindowPanel {
         contentHolder.add(component);
     }
 
+    public void removeAll() {
+        contentHolder.removeAll();
+    }
+
+    public void updateView() {
+        contentHolder.revalidate();
+        contentHolder.repaint();
+    }
 
 }

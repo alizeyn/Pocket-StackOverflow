@@ -15,6 +15,8 @@ public class BaseToolWindowFactory implements ToolWindowFactory {
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
 
         BaseToolWindow baseToolWindow = new BaseToolWindow(toolWindow);
+        CenterMessage centerMessage = new CenterMessage();
+        baseToolWindow.addView(centerMessage.getContentHolder());
 
         ProjectService projectService = ServiceManager.getService(project, ProjectService.class);
         projectService.setBaseToolWindow(baseToolWindow);

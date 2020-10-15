@@ -31,10 +31,13 @@ public class SearchAction extends AnAction {
         } else {
             BaseToolWindowFactory.ProjectService projectService = ServiceManager.getService(e.getProject(), BaseToolWindowFactory.ProjectService.class);
             BaseToolWindow baseToolWindow = projectService.getBaseToolWindow();
+            baseToolWindow.removeAll();
 
             ResultListView resultListView = new ResultListView();
             baseToolWindow.addView(resultListView.getContent());
+
             resultListView.setProgressView();
+            baseToolWindow.updateView();
 
             RetrofitFactory.getInstance()
                     .getSearchRetrofit()
@@ -43,8 +46,8 @@ public class SearchAction extends AnAction {
                         @Override
                         public void onResponse(Call<List<ParseResult>> call, Response<List<ParseResult>> response) {
                             System.out.println(response.body().size());
-                            ParseResult result = response.body().get(0);
                             resultListView.updateData(response.body());
+//                            baseToolWindow.updateView();
                         }
 
                         @Override
