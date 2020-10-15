@@ -44,7 +44,7 @@
               <enabled value="false"/>
               <font style="1"/>
               <foreground color="-10493286"/>
-              <text value="Accepted"/>
+              <text value="Accepted Answer"/>
               <visible value="false"/>
             </properties>
           </component>
