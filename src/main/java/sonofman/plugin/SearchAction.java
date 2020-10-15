@@ -3,6 +3,7 @@ package sonofman.plugin;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.ui.Messages;
@@ -10,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import sonofman.ui.CenterMessageView;
 import sonofman.ui.PluginIcons;
 import sonofman.model.ParseResult;
 import sonofman.network.RetrofitFactory;
@@ -31,7 +33,7 @@ public class SearchAction extends AnAction {
         if (selectedText == null || selectedText.isEmpty()) {
             Messages.showErrorDialog("You must select a text to search", "Error");
         } else if (selectedText.length() < 20) {
-            Messages.showErrorDialog("Please Consider Search With More Than 20 Characters", "Error");
+            Messages.showErrorDialog("Please consider search With more than 20 characters", "Error");
         } else {
             BaseToolWindowFactory.ProjectService projectService = ServiceManager.getService(e.getProject(),
                     BaseToolWindowFactory.ProjectService.class);
@@ -51,13 +53,29 @@ public class SearchAction extends AnAction {
                     .enqueue(new Callback<List<ParseResult>>() {
                         @Override
                         public void onResponse(Call<List<ParseResult>> call, Response<List<ParseResult>> response) {
-                            resultListView.updateData(response.body());
+
+                            if (response.isSuccessful()) {
+                                resultListView.updateData(response.body());
+                                Messages.showInfoMessage(response.message(), "Success");
+                            } else {
+                                Messages.showErrorDialog(response.message(), "Server Error");
+                                baseToolWindow.removeAll();
+                                baseToolWindow.addView(new CenterMessageView().getContentHolder());
+                                baseToolWindow.updateView();
+                            }
                         }
 
                         @Override
                         public void onFailure(Call<List<ParseResult>> call, Throwable t) {
-                            Messages.showErrorDialog(t.getMessage(), "Connection Error");
+
                             t.printStackTrace();
+
+                            ApplicationManager.getApplication().invokeLater(() -> {
+                                Messages.showErrorDialog(t.getMessage(), "Connection Error");
+                                baseToolWindow.removeAll();
+                                baseToolWindow.addView(new CenterMessageView().getContentHolder());
+                                baseToolWindow.updateView();
+                            });
                         }
                     });
         }
