@@ -1,9 +1,12 @@
 package plugin;
 
 import com.intellij.ui.JBColor;
+import com.intellij.util.ui.JBUI;
 import model.Answer;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.text.DefaultCaret;
 import java.util.Date;
 
 
@@ -16,15 +19,24 @@ public class AnswerItem {
     private JLabel votesLabel;
     private JPanel contentHolder;
 
+    public AnswerItem() {
+        setLookAndFeel();
+    }
+
     public void setAnswer(Answer answer) {
 
         setAnswerBody(answer.getBody());
+
+        //TODO guess it's borken server side
+
         if (answer.isAccepted()) {
             acceptedAnswerLabel.setVisible(true);
+            contentHolder.revalidate();
+            contentHolder.repaint();
         }
         votesLabel.setText(votesLabel.getText().replace("-", String.valueOf(answer.getVotes())));
 
-        Date date = new Date(answer.getCreationData());
+        Date date = new Date(answer.getCreationData() * 1000);
         String formattedDate = answerDateLabel.getText()
                 .replace("-", date.getYear() +"/"+date.getMonth()+"/"+date.getDay());
         answerDateLabel.setText(formattedDate);
@@ -48,10 +60,25 @@ public class AnswerItem {
         String contentHolderStyle = "img{max-width:200px;}";
         String inlineCodeStyle = String.format(".inlinecode{background-color:%s;}", hexColor);
 
-        return String.format("<html><style>" + codeBlockStyle + inlineCodeStyle + contentHolderStyle + "</style><dev>%s</dev></html>", text);
+        return String.format("<html><style>" + codeBlockStyle + inlineCodeStyle + contentHolderStyle + "</style>%s</html>", text);
     }
 
     public JPanel getContentHolder() {
         return contentHolder;
+    }
+
+    void setItemBorder(JComponent jComponent) {
+
+        Border border = JBUI.Borders.empty(16);
+        jComponent.setBorder(border);
+    }
+
+    private void setLookAndFeel() {
+
+        setItemBorder(contentHolder);
+        DefaultCaret caret = (DefaultCaret) answerBodyTextPane.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
+        HyperlinkMouseListener hyperlinkListener = new HyperlinkMouseListener();
+        answerBodyTextPane.addMouseListener(hyperlinkListener);
     }
 }

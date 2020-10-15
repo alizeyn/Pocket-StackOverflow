@@ -74,7 +74,7 @@ public class SearchItemUi {
 
         moreAnswersButton.addActionListener(actionEvent -> {
 
-            AnswersList answersList = new AnswersList();
+            AnswerListView answersList = new AnswerListView();
             answersList.updateData(resultModel.getAnswers());
             Container parentCardView = searchToolWindowContent;
             do {
@@ -84,7 +84,7 @@ public class SearchItemUi {
             Container panel = parentCardView;
             Component[] children = panel.getComponents();
             panel.removeAll();
-            panel.add(answersList.getContentHolder());
+            panel.add(answersList.getContent());
             answersList.setOnBackClickedListener(action -> {
                 panel.removeAll();
                 for (Component child : children) {
