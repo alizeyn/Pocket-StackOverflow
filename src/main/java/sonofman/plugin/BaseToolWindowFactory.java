@@ -24,7 +24,7 @@ public class BaseToolWindowFactory implements ToolWindowFactory {
         projectService.setBaseToolWindow(baseToolWindow);
 
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
-        Content content = contentFactory.createContent(baseToolWindow.getContent(), "Son of Man", false);
+        Content content = contentFactory.createContent(baseToolWindow.getContent(), "", false);
         toolWindow.getContentManager().addContent(content);
     }
 

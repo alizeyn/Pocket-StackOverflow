@@ -6,16 +6,19 @@ import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.editor.Editor;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
+import com.intellij.openapi.wm.ToolWindow;
+import com.intellij.openapi.wm.ToolWindowManager;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import sonofman.ui.CenterMessageView;
-import sonofman.ui.PluginIcons;
 import sonofman.model.ParseResult;
 import sonofman.network.RetrofitFactory;
 import sonofman.ui.BaseToolWindow;
+import sonofman.ui.CenterMessageView;
+import sonofman.ui.PluginIcons;
 import sonofman.ui.ResultListView;
 
 import java.util.List;
@@ -35,7 +38,11 @@ public class SearchAction extends AnAction {
         } else if (selectedText.length() < 20) {
             Messages.showErrorDialog("Please consider search With more than 20 characters", "Error");
         } else {
-            BaseToolWindowFactory.ProjectService projectService = ServiceManager.getService(e.getProject(),
+            Project project = e.getProject();
+
+            handleToolWindowVisibility(project);
+
+            BaseToolWindowFactory.ProjectService projectService = ServiceManager.getService(project,
                     BaseToolWindowFactory.ProjectService.class);
 
             BaseToolWindow baseToolWindow = projectService.getBaseToolWindow();
@@ -52,13 +59,20 @@ public class SearchAction extends AnAction {
                     .searchStackOverflow(selectedText)
                     .enqueue(new Callback<List<ParseResult>>() {
                         @Override
-                        public void onResponse(Call<List<ParseResult>> call, Response<List<ParseResult>> response) {
+                        public void onResponse(@NotNull Call<List<ParseResult>> call,
+                                               @NotNull Response<List<ParseResult>> response) {
 
-                            if (response.isSuccessful()) {
-                                resultListView.updateData(response.body());
+                            List<ParseResult> responseBody = response.body();
+
+                            if (response.isSuccessful() && responseBody != null) {
+                                resultListView.updateData(responseBody);
                                 Messages.showInfoMessage(response.message(), "Success");
                             } else {
-                                Messages.showErrorDialog(response.message(), "Server Error");
+                                String errorMessage = responseBody == null
+                                        ? "No response received"
+                                        : response.message();
+
+                                Messages.showErrorDialog(errorMessage, "Server Error");
                                 baseToolWindow.removeAll();
                                 baseToolWindow.addView(new CenterMessageView().getContentHolder());
                                 baseToolWindow.updateView();
@@ -66,7 +80,7 @@ public class SearchAction extends AnAction {
                         }
 
                         @Override
-                        public void onFailure(Call<List<ParseResult>> call, Throwable t) {
+                        public void onFailure(@NotNull Call<List<ParseResult>> call, @NotNull Throwable t) {
 
                             t.printStackTrace();
 
@@ -78,6 +92,13 @@ public class SearchAction extends AnAction {
                             });
                         }
                     });
+        }
+    }
+
+    private void handleToolWindowVisibility(Project project) {
+        ToolWindow toolWindow = ToolWindowManager.getInstance(project).getToolWindow("StackOverflow");
+        if (toolWindow != null && !toolWindow.isVisible()) {
+            toolWindow.show(null);
         }
     }
 
