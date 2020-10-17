@@ -1,6 +1,6 @@
 <idea-plugin>
     <id>ir.alizeyn.sonofman</id>
-    <name>Son of Man</name>
+    <name>Pocket Stackoverflow</name>
     <vendor email="ali3eyn@gmail.com" url="http://www.alizeyn.ir">alizeyn</vendor>
 
     <description><![CDATA[
@@ -27,7 +27,7 @@
         <!-- Add your actions here -->
         <action id="sonofman.plugin.SearchAction"
                 class="sonofman.plugin.SearchAction"
-                text="Fix The Damn Code">
+                text="Stackoverflow It">
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
         </action>
     </actions>
