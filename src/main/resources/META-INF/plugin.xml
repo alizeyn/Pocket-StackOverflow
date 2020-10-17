@@ -16,7 +16,7 @@
         <!-- Add your extensions here -->
         <toolWindow
                 id="StackOverflow"
-                icon="/icons/toolwin_code.svg"
+                icon="/icons/stackoverflow_toolwin.svg"
                 anchor="right"
                 factoryClass="sonofman.plugin.BaseToolWindowFactory"/>
         <projectService serviceImplementation="sonofman.plugin.BaseToolWindowFactory$ProjectService"/>

@@ -6,5 +6,5 @@ import javax.swing.*;
 
 public interface PluginIcons {
 
-    Icon SON_OF_MAN = IconLoader.getIcon("/icons/code.svg");
+    Icon SON_OF_MAN = IconLoader.getIcon("/icons/stackoverflow.svg");
 }
