@@ -4,8 +4,32 @@
     <vendor email="ali3eyn@gmail.com" url="http://www.alizeyn.ir">alizeyn</vendor>
 
     <description><![CDATA[
-    Never leave your IDE to search code
-    Son of man will do it for you
+    <p>
+      Pocket StackOverflow
+    <p>
+    Never Leave Your IDE To Search On StackOverflow, Because You Have One In Your Pocket
+    </P>
+
+    <p>
+      How To Use:
+      <ul>
+        <li>Select a code snippet or phrase</li>
+        <li>Right click and click on Stackoverflow It</li>
+        <li>See the results on the Stackoverflow tool window</li>
+    </p>
+
+      <p>
+        If you find any issues, please report them..
+      </p>
+
+     <p>
+        If you like this plugin, you can support it:
+        <ul>
+          <li>Spread it: Tell your friends about the plugin</li>
+          <li>Star it: <a href="https://github.com/alizeyn/Pocket-StackOverflow">Star it at GitHub</a>. GitHub account required.</li>
+          <li>Improve it: Report bugs or feature requests. Or even fix / implement them by yourself - everything is open source!</li>
+        </ul>
+    </p>
     ]]></description>
 
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
