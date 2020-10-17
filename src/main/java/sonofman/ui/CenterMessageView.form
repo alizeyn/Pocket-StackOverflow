@@ -15,7 +15,7 @@
         <properties>
           <font size="14" style="1"/>
           <requestFocusEnabled value="false"/>
-          <text value="Select The Damn Code &gt; Right Click &gt; Fix The Damn Code"/>
+          <text value="Select The Code &gt; Right Click &gt; StackOverflow It"/>
         </properties>
       </component>
       <vspacer id="c3436">

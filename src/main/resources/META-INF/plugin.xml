@@ -27,7 +27,7 @@
         <!-- Add your actions here -->
         <action id="sonofman.plugin.SearchAction"
                 class="sonofman.plugin.SearchAction"
-                text="Stackoverflow It">
+                text="StackOverflow It">
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
         </action>
     </actions>
