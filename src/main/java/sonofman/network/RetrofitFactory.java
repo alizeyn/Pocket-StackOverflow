@@ -9,10 +9,11 @@ import java.util.concurrent.TimeUnit;
 
 public class RetrofitFactory {
 
-    public static String STACK_OVERFLOW_BASE_URL = "http://localhost:9698";
+    public static String STACK_OVERFLOW_BASE_URL = "https://stackoverflow.alizeyn.ir:9698";
+//    public static String STACK_OVERFLOW_BASE_URL = "http://localhost:9698";
 
     private static RetrofitFactory retrofitFactory;
-    private OkHttpClient client;
+    private final OkHttpClient client;
     private Retrofit stackOverflowRetrofit;
 
     private RetrofitFactory() {
