@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface SearchServices {
 
-    @GET("sonOfMan/search")
+    @GET("sonOfMan/gsearch")
     Call<List<ParseResult>> searchStackOverflow(@Query("query") String query);
 }
